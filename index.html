@@ -15,7 +15,7 @@
 
     <!-- Asegúrate de que este dominio es correcto -->
     <iframe src="https://ai-bot-football-predictions-by-enrmp.netlify.app/"
-        width="400" height="600" style="border:none;">
+        width="100%" height="600" style="border:none;">
     </iframe>
 
     <!-- Botón de Login de Telegram -->
@@ -26,18 +26,18 @@
         data-request-access="write">
     </script>
 
-    <script type="text/javascript">
-        function onTelegramAuth(user) {
-            alert("Logged in as " + user.first_name + " " + 
-                  user.last_name + " (" + user.id + 
-                  (user.username ? ", @" + user.username : "") + ")");
-        }
-    </script>
-
     <script>
+        window.onTelegramAuth = function(user) {
+            alert("Logged in as " + user.first_name + " " + 
+                  (user.last_name || "") + " (" + user.id + 
+                  (user.username ? ", @" + user.username : "") + ")");
+        };
+
         let tg = window.Telegram.WebApp;
 
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        tg.ready();  // Marca la Web App como lista
+
+        if (tg.initDataUnsafe?.user) {
             tg.expand();  // Expande la Web App al máximo
             document.getElementById("username").innerText = tg.initDataUnsafe.user.first_name;
         }
