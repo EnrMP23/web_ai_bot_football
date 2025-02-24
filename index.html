@@ -27,20 +27,14 @@
     </script>
 
     <script>
-        window.onTelegramAuth = function(user) {
-            alert("Logged in as " + user.first_name + " " + 
-                  (user.last_name || "") + " (" + user.id + 
-                  (user.username ? ", @" + user.username : "") + ")");
-        };
+    window.onTelegramAuth = function(user) {
+        console.log("Datos recibidos de Telegram:", user);
+        alert("Logged in as " + user.first_name + " " + 
+              (user.last_name || "") + " (" + user.id + 
+              (user.username ? ", @" + user.username : "") + ")");
+    };
+</script>
 
-        let tg = window.Telegram.WebApp;
-
-        tg.ready();  // Marca la Web App como lista
-
-        if (tg.initDataUnsafe?.user) {
-            tg.expand();  // Expande la Web App al máximo
-            document.getElementById("username").innerText = tg.initDataUnsafe.user.first_name;
-        }
     </script>
 </body>
 </html>
