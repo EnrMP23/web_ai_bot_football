@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Web App de Telegram</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a mi Web App de Telegram</h1>
+    <p>Hola, <span id="username"></span>!</p>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();  // Expande la Web App al máximo
+
+        document.getElementById("username").innerText = tg.initDataUnsafe.user?.first_name || "Usuario";
+    </script>
+</body>
+</html>
