@@ -13,28 +13,36 @@
     <h1>Bienvenido a mi Web App de Telegram</h1>
     <p>Hola, <span id="username">Usuario</span>!</p>
 
-    <!-- Asegúrate de que este dominio es correcto -->
     <iframe src="https://ai-bot-football-predictions-by-enrmp.netlify.app/"
         width="100%" height="600" style="border:none;">
     </iframe>
 
-    <!-- Botón de Login de Telegram -->
+    <!-- Declaramos la función antes de cargar el widget -->
+    <script>
+        window.onTelegramAuth = function(user) {
+            console.log("Usuario autenticado:", user);
+            alert("Has iniciado sesión como " + user.first_name);
+            document.getElementById("username").innerText = user.first_name;
+        };
+    </script>
+
+    <!-- Widget de Telegram -->
     <script async src="https://telegram.org/js/telegram-widget.js?22" 
         data-telegram-login="jupiter23bot" 
         data-size="large" 
-        data-onauth="onTelegramAuth(user)" 
+        data-onauth="onTelegramAuth" 
         data-request-access="write">
     </script>
 
     <script>
-    window.onTelegramAuth = function(user) {
-        console.log("Datos recibidos de Telegram:", user);
-        alert("Logged in as " + user.first_name + " " + 
-              (user.last_name || "") + " (" + user.id + 
-              (user.username ? ", @" + user.username : "") + ")");
-    };
-</script>
+        let tg = window.Telegram.WebApp;
 
+        tg.ready();  // Marca la Web App como lista
+
+        if (tg.initDataUnsafe?.user) {
+            tg.expand();  // Expande la Web App al máximo
+            document.getElementById("username").innerText = tg.initDataUnsafe.user.first_name;
+        }
     </script>
 </body>
 </html>
